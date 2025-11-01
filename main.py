@@ -16,7 +16,7 @@ def main_menu():
         print("7. Sort Students")
         print("8. Exit")
 
-        choice = input("Enter your choice (1-7): ").strip()
+        choice = input("Enter your choice (1-8): ").strip()
 
         if choice == '1':
             try:
@@ -81,7 +81,7 @@ def main_menu():
             print(Fore.GREEN + "✅ Exiting program. Goodbye!")
             break
         else:
-            print(Fore.RED + "❌ Invalid choice. Please select 1-6.")
+            print(Fore.RED + "❌ Invalid choice. Please select 1-8.")
 
 if __name__ == "__main__":
     main_menu()
