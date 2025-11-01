@@ -121,8 +121,7 @@ The menu will display options:
 
 ![starting of the system](images_gifs/start.png)
 ![Gif of the system](images_gifs/final.gif)
-
-_Will Be added soon..._
+![Logs of the system](images_gifs/logs.png)
 
 ---
 
