@@ -2,6 +2,7 @@ from colorama import Fore, Style, init
 import logging
 from typing import List, Optional
 from student import Student, InvalidStudentDataError
+from file_hander import FileHandler
 
 init(autoreset=True)
 
@@ -13,12 +14,15 @@ logging.basicConfig(
 
 class StudentManager:
     def __init__(self) -> None:
-        self.students: List[Student] = []
+        self.students: List[Student] = FileHandler.load_from_file()
+        print(f"Loaded {len(self.students)} students from data.json")
+
 
     def add_student(self, student:Student) -> None:
         if any(s.id == student.id for s in self.students):
             raise ValueError(f"Student with the id already exists.")
         self.students.append(student)
+        FileHandler.save_to_file(self.students)
         print(Fore.GREEN + f"✅ Student added: {student.name} (ID: {student.id})")
         logging.info(f"Added student: {student.name} (Id: {student.id})")
 
@@ -47,6 +51,7 @@ class StudentManager:
         for key, value in kwargs.items():
             if hasattr(student, key):
                 setattr(student, key, value)
+                FileHandler.save_to_file(self.students)
                 print(Fore.CYAN + f"🔄 Updated {key} to '{value}' for {student.name}")
                 logging.info(f"Updated {key} for student ID {student_id} to '{value}'")
             else:
@@ -62,5 +67,6 @@ class StudentManager:
             return
 
         self.students.remove(student)
+        FileHandler.save_to_file(self.students)
         print(Fore.MAGENTA + f"🗑️  Deleted student: {student.name} (ID: {student.id})")
         logging.info(f"Deleted student: {student.name} (ID: {student.id})")
