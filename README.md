@@ -117,7 +117,10 @@ The menu will display options:
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots and ScreenCasts
+
+![starting of the system](images_gifs/start.png)
+![Gif of the system](images_gifs/final.gif)
 
 _Will Be added soon..._
 
