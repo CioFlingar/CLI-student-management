@@ -29,6 +29,19 @@ class StudentManager:
     def list_students(self) -> List[Student]:
         return self.students
 
+    def sort_students(self, key: str) -> List[Student]:
+        valid_keys = {"age", "grade", "name", "id"}
+        if key not in valid_keys:
+            print(Fore.RED + f"❌ Invalid sort key. Choose from: {', '.join(valid_keys)}")
+            return []
+
+        sorted_list = sorted(self.students, key=lambda s: getattr(s, key))
+        print(Fore.GREEN + f"✅ Students sorted by '{key}':")
+        for s in sorted_list:
+            print(s)
+        logging.info(f"Students sorted by '{key}'")
+        return sorted_list
+
     def find_student_by_id(self, student_id: int) -> Optional[Student]:
         for student in self.students:
             if student_id == student.id:
@@ -40,6 +53,17 @@ class StudentManager:
         logging.warning(f"Student with ID {student_id} not found.")
         return None
 
+    def find_students_by_name(self, name: str) -> List[Student]:
+        results = [s for s in self.students if name.lower() in s.name.lower()]
+        if results:
+            print(Fore.GREEN + f"✅ Found {len(results)} student(s) matching '{name}':")
+            for s in results:
+                print(s)
+            logging.info(f"Search by name '{name}' returned {len(results)} result(s)")
+        else:
+            print(Fore.YELLOW + f"⚠️  No students found with name '{name}'")
+            logging.warning(f"Search by name '{name}' returned 0 results")
+        return results
 
     def update_student(self, student_id: int, **kwargs)->None:
         student = self.find_student_by_id(student_id)
